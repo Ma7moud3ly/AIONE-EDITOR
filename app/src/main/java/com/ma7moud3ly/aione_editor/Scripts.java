@@ -36,7 +36,7 @@ public class Scripts {
     public static String read(String name) {
         File file = new File(name);
         if (!file.exists())
-            return "not found";
+            return "";
         try {
             DataInputStream dis = new DataInputStream(new FileInputStream(file));
             byte[] byt = new byte[dis.available()];

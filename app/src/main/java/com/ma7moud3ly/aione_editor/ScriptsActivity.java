@@ -3,6 +3,7 @@ package com.ma7moud3ly.aione_editor;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.LayoutInflater;
@@ -109,7 +110,17 @@ public class ScriptsActivity extends AppCompatActivity {
     }
 
     private void runScript(String name) {
-        EditorActivity.shareScript(this, EditorActivity.scripts_path + "/" + name);
+        shareScript(EditorActivity.scripts_path + "/" + name);
+    }
+
+    private void shareScript(final String mpath) {
+        if (mpath == "") return;
+        Intent shareIntent = new Intent();
+        shareIntent.setAction(Intent.ACTION_SEND);
+        Uri uri = Uri.fromFile(new File(mpath));
+        shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
+        shareIntent.setType("text/*");
+        startActivity(Intent.createChooser(shareIntent, getResources().getString(R.string.app_name)));
     }
 
 
